@@ -2,7 +2,7 @@ import torch
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
 # 加载你刚才训练好的最佳模型
-MODEL_PATH = "./byt5_old_english_reconstructor/best_model"
+MODEL_PATH = "./byt5_old_english_reconstructor/checkpoint-825"
 tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
 model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_PATH)
 
