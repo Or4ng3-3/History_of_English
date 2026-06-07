@@ -39,13 +39,38 @@ def reconstruct_old_english(english="-", german="-", dutch="-", swedish="-"):
     return prediction
 
 # ==========================================
-# 测试一些例子（你可以自己改词测试）
+# 交互式用户输入主循环
 # ==========================================
-# # 测试 1: "free" 的重构
-# print("预测1 [free]:", reconstruct_old_english(english="free", german="frei", dutch="vrij", swedish="fri"))
-# # 测试 2: "now" 的重构
-# print("预测2 [now]:", reconstruct_old_english(english="now", german="nun", dutch="nou", swedish="nu"))
-# # 测试 3: 假设缺失了瑞典语和荷兰语，只给英语和德语，看能否预测出古英语的 "father"
-# print("预测3 [father]:", reconstruct_old_english(english="father", german="Vater"))
+print("====================================================")
+print("欢迎使用古英语智能重构系统 (History of English HEL Project)")
+print("说明：输入现代单词。若该语言无同源词或你想模拟数据缺失，请【直接按回车】跳过。")
+print("输入 'q' 或 'exit' 可退出程序。")
+print("====================================================")
 
-print("predication4: English: owe | German: eigen | Dutch: eigen | Swedish: äga | answer should be: āgan", reconstruct_old_english(english="owe", german="eigen", dutch="eigen", swedish="äga"))
+while True:
+    print("\n--- 请输入现代日耳曼语同源词 ---")
+    eng = input("1. 现代英语 (English) [默认无]: ").strip() or "-"
+    if eng.lower() in ['q', 'exit']: 
+        print("感谢使用，系统已退出。")
+        break
+        
+    ger = input("2. 现代德语 (German)  [默认无]: ").strip() or "-"
+    if ger.lower() in ['q', 'exit']: break
+    
+    dut = input("3. 现代荷兰语 (Dutch)   [默认无]: ").strip() or "-"
+    if dut.lower() in ['q', 'exit']: break
+    
+    swe = input("4. 现代瑞典语 (Swedish) [默认无]: ").strip() or "-"
+    if swe.lower() in ['q', 'exit']: break
+    
+    # 检查是否全部留空
+    if eng == "-" and ger == "-" and dut == "-" and swe == "-":
+        print("⚠️ 错误：你必须至少提供一门语言的单词！")
+        continue
+        
+    # 运行模型重构
+    try:
+        predicted_oe = reconstruct_old_english(english=eng, german=ger, dutch=dut, swedish=swe)
+        print(f"\n👉 AI 重构的【古英语 (Old English)】形式为: \033[1;32m{predicted_oe}\033[0m")
+    except Exception as e:
+        print(f"发生错误: {e}")
