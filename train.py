@@ -89,18 +89,18 @@ data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
 # ==========================================
 training_args = Seq2SeqTrainingArguments(
     output_dir=OUTPUT_DIR,
-    evaluation_strategy="epoch",
+    eval_strategy="epoch",         # <-- 修正：已从 evaluation_strategy 改为 eval_strategy
     save_strategy="epoch",
-    learning_rate=5e-4,            # ByT5 微调通常需要稍大一些的学习率
-    per_device_train_batch_size=8, # T4 上设为 8 非常安全，不易 OOM
+    learning_rate=5e-4,            
+    per_device_train_batch_size=8, 
     per_device_eval_batch_size=8,
     weight_decay=0.01,
     save_total_limit=2,
-    num_train_epochs=15,           # 15个 Epoch 足够让 3000 条数据收敛
+    num_train_epochs=15,           
     predict_with_generate=True,
-    fp16=True,                     # 核心：开启 T4 硬件加速的半精度训练
+    fp16=True,                     
     logging_steps=50,
-    load_best_model_at_end=True,   # 训练结束时加载验证集上表现最好的模型
+    load_best_model_at_end=True,   
     metric_for_best_model="loss",
     report_to="none"
 )
