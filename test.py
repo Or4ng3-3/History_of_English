@@ -41,9 +41,11 @@ def reconstruct_old_english(english="-", german="-", dutch="-", swedish="-"):
 # ==========================================
 # 测试一些例子（你可以自己改词测试）
 # ==========================================
-# 测试 1: "free" 的重构
-print("预测1 [free]:", reconstruct_old_english(english="free", german="frei", dutch="vrij", swedish="fri"))
-# 测试 2: "now" 的重构
-print("预测2 [now]:", reconstruct_old_english(english="now", german="nun", dutch="nou", swedish="nu"))
-# 测试 3: 假设缺失了瑞典语和荷兰语，只给英语和德语，看能否预测出古英语的 "father"
-print("预测3 [father]:", reconstruct_old_english(english="father", german="Vater"))
+# # 测试 1: "free" 的重构
+# print("预测1 [free]:", reconstruct_old_english(english="free", german="frei", dutch="vrij", swedish="fri"))
+# # 测试 2: "now" 的重构
+# print("预测2 [now]:", reconstruct_old_english(english="now", german="nun", dutch="nou", swedish="nu"))
+# # 测试 3: 假设缺失了瑞典语和荷兰语，只给英语和德语，看能否预测出古英语的 "father"
+# print("预测3 [father]:", reconstruct_old_english(english="father", german="Vater"))
+
+print("predication4: English: owe | German: eigen | Dutch: eigen | Swedish: äga | answer should be: āgan", reconstruct_old_english(english="owe", german="eigen", dutch="eigen", swedish="äga"))
