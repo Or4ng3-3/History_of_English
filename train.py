@@ -108,12 +108,13 @@ training_args = Seq2SeqTrainingArguments(
 # ==========================================
 # 6. 开始训练
 # ==========================================
+
 trainer = Seq2SeqTrainer(
     model=model,
     args=training_args,
     train_dataset=tokenized_train,
     eval_dataset=tokenized_val,
-    tokenizer=tokenizer,
+    processing_class=tokenizer,   # <-- 修正：已从 tokenizer 改为 processing_class
     data_collator=data_collator,
 )
 
