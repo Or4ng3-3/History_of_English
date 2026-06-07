@@ -85,20 +85,20 @@ tokenized_val = val_dataset.map(preprocess_function, batched=True, remove_column
 data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
 
 # ==========================================
-# 5. 设置针对 T4 GPU 优化的训练参数
+# 5. 设置针对 T4 GPU 优化的训练参数（关闭 fp16 避免 NaN）
 # ==========================================
 training_args = Seq2SeqTrainingArguments(
     output_dir=OUTPUT_DIR,
-    eval_strategy="epoch",         # <-- 修正：已从 evaluation_strategy 改为 eval_strategy
+    eval_strategy="epoch",         
     save_strategy="epoch",
-    learning_rate=5e-4,            
+    learning_rate=2e-4,            # 稍微降低学习率，让训练更平稳（从 5e-4 降到 2e-4）
     per_device_train_batch_size=8, 
     per_device_eval_batch_size=8,
     weight_decay=0.01,
     save_total_limit=2,
     num_train_epochs=15,           
     predict_with_generate=True,
-    fp16=True,                     
+    fp16=False,                     # 核心修改：关闭 fp16，使用标准的 FP32，防止数值溢出
     logging_steps=50,
     load_best_model_at_end=True,   
     metric_for_best_model="loss",
